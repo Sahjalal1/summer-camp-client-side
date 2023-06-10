@@ -4,8 +4,8 @@ import { AuthContext } from "../../providers/AuthProvider";
 
 const Classes = () => {
     const { user } = useContext(AuthContext)
-    // const [classes, setClasses] = useState([])
-    // console.log(classes)
+    const [classes, setClasses] = useState([])
+    console.log(classes)
 
     useEffect(() => {
         fetch('http://localhost:5000/approveclasses')
