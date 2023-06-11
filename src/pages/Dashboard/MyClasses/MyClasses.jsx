@@ -2,22 +2,31 @@
 
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const MyClasses = () => {
     const { user } = useContext(AuthContext)
-    const [myclasses, setMyclasses] = useState([])
+    // const [myclasses, setMyclasses] = useState([])
     const [log, setLog] = useState(true)
 
 
-    useEffect(() => {
+    // useEffect(() => {
         
-        fetch(`http://localhost:5000/myclasses/${user?.email}`)
-            .then(res => res.json()).then(data => {
-                setMyclasses(data)
-                setLog(false)
-                console.log(data)
-            })
-    }, [user])
+    //     fetch(`http://localhost:5000/myclasses/${user?.email}`)
+    //         .then(res => res.json()).then(data => {
+    //             setMyclasses(data)
+    //             setLog(false)
+    //             console.log(data)
+    //         })
+    // }, [user])
+
+    const [axiosSecure]= useAxiosSecure()
+
+    const { data: myclasses = [], refetch } = useQuery(['myclasses'], async () => {
+        const res = await axiosSecure.get(`/myclasses/${user?.email}`)
+        return res.data;
+    })
 
 
     return (

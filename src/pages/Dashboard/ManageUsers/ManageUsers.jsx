@@ -1,15 +1,19 @@
 // import React from 'react';
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 
 const ManageUsers = () => {
-    const [users, setUsers] = useState([])
-    const [adminInstructor, setAdminInstructor] = useState('')
+    // const [users, setUsers] = useState([])
+    // const [adminInstructor, setAdminInstructor] = useState('')
+    const [axiosSecure]=useAxiosSecure()
 
-    useEffect(() => {
-        fetch("http://localhost:5000/users")
-            .then(res => res.json()).then(data => setUsers(data))
-    }, [adminInstructor])
+    const { data: users = [], refetch } = useQuery(['users'], async () => {
+        const res = await axiosSecure.get('/users')
+        return res.data;
+    })
 
 
     const handleMakeAdmin = (user) => {
@@ -20,9 +24,9 @@ const ManageUsers = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.modifiedCount) {
-                    setAdminInstructor(data.modifiedCount)
+                    // setAdminInstructor(data.modifiedCount)
                     alert('isAdmin')
-                    // refetch();
+                    refetch();
                     // Swal.fire({
                     //     position: 'top-end',
                     //     icon: 'success',
@@ -33,7 +37,7 @@ const ManageUsers = () => {
                 }
             })
     }
-console.log(adminInstructor)
+// console.log(adminInstructor)
     const handleMakeinstructor = user => {
         console.log(user._id)
         fetch(`http://localhost:5000/users/instructor/${user._id}`, {
@@ -42,9 +46,9 @@ console.log(adminInstructor)
             .then(res => res.json())
             .then(data => {
                 if (data.modifiedCount) {
-                    setAdminInstructor(data.modifiedCount)
+                    // setAdminInstructor(data.modifiedCount)
                     alert('isInstructor')
-                    // refetch();
+                    refetch();
                     // Swal.fire({
                     //     position: 'top-end',
                     //     icon: 'success',

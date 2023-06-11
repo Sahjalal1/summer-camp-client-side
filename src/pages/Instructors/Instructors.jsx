@@ -2,11 +2,9 @@ import { useEffect, useState } from "react";
 
 const Instructors = () => {
     const [instructors, setInstructors] = useState([])
-    const token = localStorage.getItem('access-token')
     useEffect(() => {
-        fetch('http://localhost:5000/instructors',
-            { headers: { authorization: `beare ${token}`}}
-        ).then(res => res.json()).then(data => {
+        fetch('http://localhost:5000/instructors',)
+        .then(res => res.json()).then(data => {
             setInstructors(data)
             console.log(data)
         })

@@ -1,18 +1,30 @@
 // import React from 'react';
 
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const ManageClasses = () => {
-    const [allClass, setAllClass] = useState([]);
-    const [feedback, setFeedback] = useState('')
-    const [par, setPar] = useState([])
+    // const [allClass, setAllClass] = useState([]);
+    // const [feedback, setFeedback] = useState('')
+    // const [par, setPar] = useState([])
 
-    useEffect(() => {
-        fetch('http://localhost:5000/classes').then(res => res.json()).then(data => {
-            setAllClass(data)
-            console.log(data)
-        })
-    }, [par])
+
+    // useEffect(() => {
+    //     fetch('http://localhost:5000/classes',{
+    //         headers: 
+    //     }).then(res => res.json()).then(data => {
+    //         setAllClass(data)
+    //         console.log(data)
+    //     })
+    // }, [par])
+
+    const [axiosSecure]= useAxiosSecure()
+
+    const { data: allClass = [] } = useQuery(['allClass'], async () => {
+        const res = await axiosSecure.get('/classes')
+        return res.data;
+    })
 
     const handelClasses = (classes, setStatus) => {
         console.log(classes._id)
@@ -30,7 +42,7 @@ const ManageClasses = () => {
             .then(data => {
                 // setAm(data)
                 console.log(data);
-                setPar(data)
+                // setPar(data)
             })
 
     }
@@ -57,11 +69,11 @@ const ManageClasses = () => {
     const handelChange = event => {
         event.preventDefault();
         const data = event.target.value
-        setFeedback(data)
+        // setFeedback(data)
     }
 
     const handelSubmit = () => {
-        console.log(feedback)
+        // console.log(feedback)
     }
 
 

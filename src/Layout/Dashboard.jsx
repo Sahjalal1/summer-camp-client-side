@@ -3,10 +3,13 @@ import { FaHome } from "react-icons/fa";
 import { GiTeacher, GiArchiveRegister } from "react-icons/gi";
 import { SiGoogleclassroom } from "react-icons/si";
 import { TbCircleCheck } from "react-icons/tb";
-// import useAdmin from "../hooks/useAdmin";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../providers/AuthProvider";
 // import useAxiosSecure from "../hooks/useAxiosSecure";
+import useAdmin from "../hooks/useAdmin";
+import useInstructors from "../hooks/useInstructors";
+import useStudent from "../hooks/useStudent";
+// import { useContext, useEffect, useState } from "react";
+// import { AuthContext } from "../providers/AuthProvider";
+
 
 
 
@@ -15,34 +18,17 @@ import { AuthContext } from "../providers/AuthProvider";
 
 
 const Dashboard = () => {
-    const { user } = useContext(AuthContext)
-    // const [axiosSecure]= useAxiosSecure()
-    const token = localStorage.getItem('access-token')
-    const [isAdmina, setIsAdmin] = useState(false);
+     
+    // const isUsers = false;
+    // const isInstructor = false;
+    // const isAdmin = true;
+    const [isStudent]= useStudent();
+    const [isInstructor]= useInstructors();
+    const [isAdmin] = useAdmin()
+    console.log('student', isStudent)
+    console.log('Instructors', isInstructor)
+    console.log('admin', isAdmin)
 
-    useEffect(() => {
-
-        fetch(`http://localhost:5000/user/admin/${user?.email}`, {
-            headers: { authorization: `bearer ${token}` }
-        })
-            .then(res => res.json()).then(data => {
-                if (data === true) {
-                    console.log('hahahahha',data)
-                    setIsAdmin(data)
-                }
-                else(
-                    console.log('error', data)
-                )
-            })
-
-    }, [user, token])
-
-    console.log(isAdmina)
-    const isUsers = false;
-    const isInstructor = false;
-    const isAdmin = true;
-    // const [isAdmin] = useAdmin()
-    // console.log(isAdmin)
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -57,7 +43,7 @@ const Dashboard = () => {
                     {/* Sidebar content here */}
 
                     {
-                        isUsers && <>
+                        isStudent && <>
                             <li><Link to="/dashboard/selectClasses"><TbCircleCheck className="w-6 h-6"></TbCircleCheck> My Selected Classes</Link></li>
                             <li><Link><GiArchiveRegister className="w-6 h-6"></GiArchiveRegister> My Enrolled Classes</Link></li>
                         </>

@@ -9,9 +9,12 @@ import Dashboard from "../Layout/Dashboard";
 import ManageUsers from "../pages/Dashboard/ManageUsers/ManageUsers";
 import AddClass from "../pages/Dashboard/AddClass/AddClass";
 import MyClasses from "../pages/Dashboard/MyClasses/MyClasses";
-import UserSelectClass from "../pages/Dashboard/userSelectClass/userSelectClass";
+import UserSelectClass from "../pages/Dashboard/UserSelectClass/UserSelectClass";
 import Payment from "../pages/Dashboard/Payment/Payment";
 import ManageClasses from "../pages/Dashboard/ManageClasses/ManageClasses";
+import PrivateRoute from "../Routes/PrivateRoute" 
+import AdminRoute from "./AdminRoute";
+import InstructorsRoute from "./InstructorsRoute";
 
 export const router = createBrowserRouter([
     {
@@ -46,30 +49,30 @@ export const router = createBrowserRouter([
     },
     {
       path: 'dashboard',
-      element: <Dashboard></Dashboard>,
+      element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
       children: [
         {
           path: "manageusers",
-          element: <ManageUsers></ManageUsers>
+          element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
         },
         {
           path: "manageclasses",
-          element: <ManageClasses></ManageClasses>
+          element: <AdminRoute><ManageClasses></ManageClasses></AdminRoute>
         },
         {
           path: "addclasses",
-          element: <AddClass></AddClass>
+          element: <InstructorsRoute><AddClass></AddClass></InstructorsRoute>
         },
         {
           path: "myclasses",
-          element: <MyClasses></MyClasses>
+          element: <InstructorsRoute><MyClasses></MyClasses></InstructorsRoute>
         },
         {
           path: "selectClasses",
           element: <UserSelectClass></UserSelectClass>
         },
         {
-          path: "payment",
+          path: "payment/:id",
           element: <Payment></Payment>
         }
       ]

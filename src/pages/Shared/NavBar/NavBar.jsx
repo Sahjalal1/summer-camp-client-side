@@ -5,7 +5,7 @@ import useAuth from "../../../hooks/useAuth";
 const NavBar = () => {
     const { user, logOut } = useAuth()
 
-    const handleLogOut = ()=>{
+    const handleLogOut = () => {
         logOut()
     }
 
@@ -13,7 +13,7 @@ const NavBar = () => {
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/instructors'>Instructors</Link></li>
         <li><Link to='/classes'>Classes</Link></li>
-       <li><Link to='/dashboard'>Dashboard</Link></li> 
+        <li><Link to='/dashboard/'>Dashboard</Link></li>
     </>
 
     return (
@@ -39,10 +39,10 @@ const NavBar = () => {
                     <div className="w-10 rounded-full">
                         <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
                     </div>
-                   {
-                    user ? <Link onClick={handleLogOut} >LogOut</Link>
-                     : <Link to='/login'>Login</Link>
-                   }
+                    {
+                        user ? <Link onClick={handleLogOut} >LogOut</Link>
+                            : <Link to='/login'>Login</Link>
+                    }
                 </div>
             </div>
         </div>

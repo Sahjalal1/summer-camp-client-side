@@ -1,22 +1,33 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 
 const Classes = () => {
     const { user } = useContext(AuthContext)
+    const [axiosSecure]= useAxiosSecure()
+    // const [classes, setClasses] = useState([])
+    // console.log(classes)
 
+    // useEffect(() => {
+    //     fetch('http://localhost:5000/approveclasses')
+    //         .then(res => res.json())
+    //         .then(data => setClasses(data))
+    // }, [])
 
-    useEffect(() => {
-        fetch('http://localhost:5000/approveclasses')
-            .then(res => res.json())
-            .then(data => setClasses(data))
-    }, [])
+    const { data: classes = [] } = useQuery(['classes'], async () => {
+        const res = await axiosSecure.get('/approveclasses')
+        return res.data;
+    })
+console.log(classes)
 
     const handelAddCart = item => {
         console.log(item)
-        const { _id, name, img, price, AvailableSeats } = item
+        const { _id, classname, imgURL, price, availableseats,TotalEnrolled } = item
         if (user && user.email) {
-            const data = { classId: _id, name, img, price, AvailableSeats, email: user.email }
+            const data = { classId: _id, classname, imgURL, price, availableseats,TotalEnrolled, email: user.email }
+            console.log(data)
             fetch('http://localhost:5000/addclass', {
                 method: 'POST',
                 headers: {

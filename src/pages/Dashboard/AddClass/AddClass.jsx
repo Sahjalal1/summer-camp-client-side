@@ -2,9 +2,11 @@
 
 import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const AddClass = () => {
     const {user}= useContext(AuthContext)
+    const [axiosSecure]= useAxiosSecure()
 
     const handelSubmit = event =>{
         event.preventDefault();
@@ -18,13 +20,21 @@ const AddClass = () => {
         console.log(imgURL, classname, instructorname, instructoremail, availableseats, price)
         const newClass = {imgURL, classname, instructorname, instructoremail, availableseats, price, status:'pending', TotalEnrolled: '0'}
 
-        fetch('http://localhost:5000/classes',{       
-            method: "POST",
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(newClass)
-        }).then(res=>res.json()).then(data=>console.log(data))
+        axiosSecure.post('/classes', newClass)
+                .then(data => {
+                    console.log('after posting new menu item', data.data)
+                    if(data.data.insertedId){
+                        // console.log('rahim')
+                        // reset();
+                        // Swal.fire({
+                        //     position: 'top-end',
+                        //     icon: 'success',
+                        //     title: 'Item added successfully',
+                        //     showConfirmButton: false,
+                        //     timer: 1500
+                        //   })
+                    }
+                })
     }
     return (
         <div>
