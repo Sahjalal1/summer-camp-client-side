@@ -45,7 +45,8 @@ const Dashboard = () => {
                     {
                         isStudent && <>
                             <li><Link to="/dashboard/selectClasses"><TbCircleCheck className="w-6 h-6"></TbCircleCheck> My Selected Classes</Link></li>
-                            <li><Link><GiArchiveRegister className="w-6 h-6"></GiArchiveRegister> My Enrolled Classes</Link></li>
+                            <li><Link to="/dashboard/enrolledclasses"><GiArchiveRegister className="w-6 h-6"></GiArchiveRegister> My Enrolled Classes</Link></li>
+                            <li><Link to="/dashboard/paymenthistory"><GiArchiveRegister className="w-6 h-6"></GiArchiveRegister> PaymentHistory</Link></li>
                         </>
                     }
                     {

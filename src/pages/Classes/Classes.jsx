@@ -2,31 +2,27 @@ import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 
 const Classes = () => {
     const { user } = useContext(AuthContext)
-    const [axiosSecure]= useAxiosSecure()
-    // const [classes, setClasses] = useState([])
-    // console.log(classes)
+    const [axiosSecure] = useAxiosSecure()
+    const navigate = useNavigate()
 
-    // useEffect(() => {
-    //     fetch('http://localhost:5000/approveclasses')
-    //         .then(res => res.json())
-    //         .then(data => setClasses(data))
-    // }, [])
-
-    const { data: classes = [] } = useQuery(['classes'], async () => {
+    const { data: classes = [], refetch } = useQuery(['classes'], async () => {
         const res = await axiosSecure.get('/approveclasses')
         return res.data;
     })
-console.log(classes)
+    console.log(classes)
 
     const handelAddCart = item => {
         console.log(item)
-        const { _id, classname, imgURL, price, availableseats,TotalEnrolled } = item
+        const { _id, classname, imgURL, price, availableseats, TotalEnrolled,instructoremail,instructorname,status } = item
+        console.log(imgURL)
         if (user && user.email) {
-            const data = { classId: _id, classname, imgURL, price, availableseats,TotalEnrolled, email: user.email }
+            const data = { classId: _id, classname, imgURL, price, availableseats, TotalEnrolled,instructoremail,instructorname,status, email: user.email }
             console.log(data)
             fetch('http://localhost:5000/addclass', {
                 method: 'POST',
@@ -39,31 +35,30 @@ console.log(classes)
                 .then(data => {
                     if (data.insertedId) {
                         alert('done')
-                        // refetch(); // refetch cart to update the number of items in the cart.
-                        // Swal.fire({
-                        //     position: 'top-end',
-                        //     icon: 'success',
-                        //     title: 'Food added on the cart.',
-                        //     showConfirmButton: false,
-                        //     timer: 1500
-                        // })
+                        refetch(); // refetch cart to update the number of items in the cart.
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Food added on the cart.',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
                     }
                 })
         }
         else {
-            alert('soy')
-            // Swal.fire({
-            //     title: 'Please login to order the food',
-            //     icon: 'warning',
-            //     showCancelButton: true,
-            //     confirmButtonColor: '#3085d6',
-            //     cancelButtonColor: '#d33',
-            //     confirmButtonText: 'Login now'
-            // }).then((result) => {
-            //     if (result.isConfirmed) {
-            //         navigate('/login', { state: { from: location } })
-            //     }
-            // })
+            Swal.fire({
+                title: 'Please login to order the food',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Login now'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/login', { state: { from: location } })
+                }
+            })
         }
     }
 
@@ -81,9 +76,13 @@ console.log(classes)
                             <h2 className="card-title">Name : {classe.classname}</h2>
                             <p>Name : {classe.instructorname}</p>
                             <p>Available Seats : <span className="text-error">{classe.availableseats}</span></p>
+                            <p>TotalEnrolled : <span className="text-error">{classe.TotalEnrolled}</span></p>
                             <p>Price : <span className="text-error">{classe.price}</span></p>
                             <div className="card-actions justify-end">
-                                <button onClick={() => handelAddCart(classe)} className="btn btn-primary">See Classes</button>
+                               {
+                                classe.availableseats === 0 ?  <button  className="btn btn-error">See Classes</button>
+                                :  <button onClick={() => handelAddCart(classe)} className="btn btn-primary">See Classes</button>
+                               }
                             </div>
                         </div>
                     </div>

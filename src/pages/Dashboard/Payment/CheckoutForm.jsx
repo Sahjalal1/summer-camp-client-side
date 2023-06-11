@@ -2,10 +2,10 @@ import { useStripe, CardElement, useElements } from "@stripe/react-stripe-js";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import  "./CheckoutForm.css"
 
 
-const CheckoutForm = ({ price, select}) => {
+
+const CheckoutForm = ({ price, select }) => {
     const stripe = useStripe();
     const elements = useElements()
     const { user } = useContext(AuthContext)
@@ -15,7 +15,7 @@ const CheckoutForm = ({ price, select}) => {
     const [processing, setProcessing] = useState(false)
     const [transactionId, setTransactionId] = useState('')
     // console.log(clientSecret)
-console.log('fjdsklfjsdlkjfsd', select)
+    console.log('fjdsklfjsdlkjfsd', select)
     useEffect(() => {
         if (price > 0) {
             axiosSecure.post('/create-payment-intent', { price })
@@ -76,17 +76,26 @@ console.log('fjdsklfjsdlkjfsd', select)
 
         if (paymentIntent.status === 'succeeded') {
             setTransactionId(paymentIntent.id)
+            // const haha = 
+            const {classId,classname,availableseats,imgURL,TotalEnrolled,instructoremail,instructorname,status,price} =select[0]; 
+            // console.log('hahahahahah',classname,availableseats,TotalEnrolled,imgURL,instructoremail,instructorname,status,price )
+            const sum = parseFloat(TotalEnrolled) + 1;
+            const minus = parseFloat(availableseats) - 1;
             const payment = {
                 email: user?.email,
                 transactionId: paymentIntent.id,
                 price,
                 date: new Date(),
                 cartItems: select.map(item => item._id),
-                menuItems: select.map(item => item.classId),
-                status: 'service pending',
-                itemNames: select.map(item => item.classname),
-                availableseats: select.map(item => item.availableseats),
-                TotalEnrolled: select.map(item => item.TotalEnrolled)
+                menuItems: classId,
+                newstatus: 'service pending',
+                itemNames: classname,
+                availableseats: minus,
+                TotalEnrolled: sum,
+                imgURL: imgURL,
+                instructoremail: instructoremail,
+                instructorname: instructorname,
+                status: status
 
             }
             axiosSecure.post('/payments', payment)

@@ -20,6 +20,8 @@ const Payment = () => {
         return res.data;
     })
 
+    console.log('rahim',select)
+
     console.log('done',select[0]?.price)
     const total = select[0]?.price;
     const price = parseFloat(total)

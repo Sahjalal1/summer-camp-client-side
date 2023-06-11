@@ -7,23 +7,14 @@ import { useQuery } from "@tanstack/react-query";
 
 const MyClasses = () => {
     const { user } = useContext(AuthContext)
-    // const [myclasses, setMyclasses] = useState([])
     const [log, setLog] = useState(true)
 
 
-    // useEffect(() => {
-        
-    //     fetch(`http://localhost:5000/myclasses/${user?.email}`)
-    //         .then(res => res.json()).then(data => {
-    //             setMyclasses(data)
-    //             setLog(false)
-    //             console.log(data)
-    //         })
-    // }, [user])
 
-    const [axiosSecure]= useAxiosSecure()
 
-    const { data: myclasses = [], refetch } = useQuery(['myclasses'], async () => {
+    const [axiosSecure] = useAxiosSecure()
+
+    const { data: myclasses = [] } = useQuery(['myclasses'], async () => {
         const res = await axiosSecure.get(`/myclasses/${user?.email}`)
         return res.data;
     })
@@ -35,8 +26,8 @@ const MyClasses = () => {
                 log && <p className="text-4xl">rahim</p>
             }
             <div className="w-[300px] mx-auto">
-                    <h1 className="text-center text-4xl my-16 border-x-4 border-error">M<span className="text-error">y</span> Cla<span className="text-error">ss</span>es</h1>
-                </div>
+                <h1 className="text-center text-4xl my-16 border-x-4 border-error">M<span className="text-error">y</span> Cla<span className="text-error">ss</span>es</h1>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 ">
                 {
                     myclasses?.map(myclass => <div key={myclass._id} className="w-[90%] mx-auto lg:w-[400px] shadow-2xl rounded-lg">

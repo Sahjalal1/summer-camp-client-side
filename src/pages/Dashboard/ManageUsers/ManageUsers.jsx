@@ -3,11 +3,10 @@
 
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 
 const ManageUsers = () => {
-    // const [users, setUsers] = useState([])
-    // const [adminInstructor, setAdminInstructor] = useState('')
     const [axiosSecure]=useAxiosSecure()
 
     const { data: users = [], refetch } = useQuery(['users'], async () => {
@@ -24,20 +23,18 @@ const ManageUsers = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.modifiedCount) {
-                    // setAdminInstructor(data.modifiedCount)
-                    alert('isAdmin')
                     refetch();
-                    // Swal.fire({
-                    //     position: 'top-end',
-                    //     icon: 'success',
-                    //     title: `${user.name} is an Admin Now!`,
-                    //     showConfirmButton: false,
-                    //     timer: 1500
-                    //   }) 
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: `${user.name} is an Admin Now!`,
+                        showConfirmButton: false,
+                        timer: 1500
+                      }) 
                 }
             })
     }
-// console.log(adminInstructor)
+
     const handleMakeinstructor = user => {
         console.log(user._id)
         fetch(`http://localhost:5000/users/instructor/${user._id}`, {
@@ -45,17 +42,15 @@ const ManageUsers = () => {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.modifiedCount) {
-                    // setAdminInstructor(data.modifiedCount)
-                    alert('isInstructor')
+                if (data.modifiedCount) {           
                     refetch();
-                    // Swal.fire({
-                    //     position: 'top-end',
-                    //     icon: 'success',
-                    //     title: `${user.name} is an Admin Now!`,
-                    //     showConfirmButton: false,
-                    //     timer: 1500
-                    //   }) 
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: `${user.name} is an Admin Now!`,
+                        showConfirmButton: false,
+                        timer: 1500
+                      }) 
                 }
             })
     }
