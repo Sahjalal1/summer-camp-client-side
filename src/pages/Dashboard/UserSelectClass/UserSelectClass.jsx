@@ -83,7 +83,7 @@ const UserSelectClass = () => {
                 {
 
                     selectClasses?.map(select => <div key={select._id} className="w-[90%] mx-auto lg:w-[400px] shadow-2xl rounded-lg">
-                        <figure><img src={select.imgURL} alt="Shoes" /></figure>
+                        <figure><img  className="w-full h-[250px]" src={select.imgURL} alt="Shoes" /></figure>
                         <div className="card-body">
                             <h2 className="card-title">Name : {select.classname}</h2>
                             <p>Email : {select.email}</p>

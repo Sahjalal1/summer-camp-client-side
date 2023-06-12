@@ -73,7 +73,7 @@ const ManageClasses = () => {
                     {
                         allClass?.map(classa => <div key={classa._id}
                             className="w-[400px] shadow-2xl rounded-lg">
-                            <img src={classa?.imgURL} alt="Shoes" />
+                            <img  className="w-full h-[250px]" src={classa?.imgURL} alt="Shoes" />
                             <div className="card-body">
                                 <h2 className="card-title">Class Name : <span className="border-b-2 border-black">{classa?.instructoremail}</span>!</h2>
 

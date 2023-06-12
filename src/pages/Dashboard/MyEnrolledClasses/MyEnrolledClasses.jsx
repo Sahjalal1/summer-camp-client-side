@@ -21,7 +21,7 @@ const MyEnrolledClasses = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {
                     EnrolledClass?.map(enrolled => <div key={enrolled._id} className="w-[90%] mx-auto lg:w-[400px] shadow-2xl rounded-lg">
-                        <figure><img src={enrolled?.imgURL} alt="Shoes" /></figure>
+                        <figure><img  className="w-full h-[250px]" src={enrolled?.imgURL} alt="Shoes" /></figure>
                         <div className="card-body">
                             <p className="card-title">Classes Name : {enrolled?.itemNames}</p>
                             <p className="">TotalEnrolled : {enrolled?.TotalEnrolled}</p>

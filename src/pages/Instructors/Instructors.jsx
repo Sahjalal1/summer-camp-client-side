@@ -30,7 +30,7 @@ const [axiosSecure]= useAxiosSecure()
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {
                     instructors?.map(instructor => <div key={instructor._id} className="lg:w-[400px] shadow-2xl rounded-lg">
-                        <figure><img src={instructor.imgURL} alt="Shoes" /></figure>
+                        <figure><img  className="w-full h-[250px]" src={instructor.imgURL} alt="Shoes" /></figure>
                         <div className="card-body">
                             <h2 className="card-title">Name : {instructor.name}</h2>
                             <p>Email : {instructor.email}</p>

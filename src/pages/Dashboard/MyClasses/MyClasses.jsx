@@ -28,7 +28,7 @@ const MyClasses = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 ">
                 {
                     myclasses?.map(myclass => <div key={myclass._id} className="w-[90%] mx-auto lg:w-[400px] shadow-2xl rounded-lg">
-                        <figure><img src={myclass.imgURL} alt="Shoes" /></figure>
+                        <figure><img  className="w-full h-[250px]" src={myclass.imgURL} alt="Shoes" /></figure>
                         <div className="card-body">
                             <h2 className="card-title">TotalEnrolled : {myclass?.TotalEnrolled}</h2>
                             <h2 className="card-title">status : <span className="border-b-2 border-black text-error">{myclass?.status}</span></h2>

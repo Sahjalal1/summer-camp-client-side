@@ -34,7 +34,6 @@ const Classes = () => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.insertedId) {
-                        alert('done')
                         refetch(); // refetch cart to update the number of items in the cart.
                         Swal.fire({
                             position: 'top-end',
@@ -71,7 +70,7 @@ const Classes = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {
                     classes.map(classe => <div key={classe._id} className="w-[400px] shadow-2xl rounded-lg">
-                        <figure><img src={classe.imgURL} alt="Shoes" /></figure>
+                        <figure><img  className="w-full h-[250px]" src={classe.imgURL} alt="Shoes" /></figure>
                         <div className="card-body">
                             <h2 className="card-title">Name : {classe.classname}</h2>
                             <p>Name : {classe.instructorname}</p>
@@ -80,7 +79,7 @@ const Classes = () => {
                             <p>Price : <span className="text-error">{classe.price}</span></p>
                             <div className="card-actions justify-end">
                                {
-                                classe.availableseats === 0 ?  <button  className="btn btn-error">See Classes</button>
+                                classe.availableseats === 0 ?  <button disabled className="btn btn-error">See Classes</button>
                                 :  <button onClick={() => handelAddCart(classe)} className="btn btn-primary">See Classes</button>
                                }
                             </div>
