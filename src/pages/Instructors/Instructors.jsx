@@ -32,7 +32,7 @@ const [axiosSecure]= useAxiosSecure()
                     instructors?.map(instructor => <div key={instructor._id} className="lg:w-[400px] shadow-2xl rounded-lg">
                         <figure><img  className="w-full h-[250px]" src={instructor.imgURL} alt="Shoes" /></figure>
                         <div className="card-body">
-                            <h2 className="card-title">Name : {instructor.name}</h2>
+                            <h2 className="card-title">Instructor Name : {instructor.name}</h2>
                             <p>Email : {instructor.email}</p>
                             <div className="card-actions justify-end">
                                 <button className="btn btn-primary">See Classes</button>

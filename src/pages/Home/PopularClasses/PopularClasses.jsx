@@ -74,7 +74,7 @@ const PopularClasses = () => {
                         <figure><img  className="w-full h-[250px]" src={classe.imgURL} alt="Shoes" /></figure>
                         <div className="card-body">
                             <h2 className="card-title">Name : {classe.classname}</h2>
-                            <p>Name : {classe.instructorname}</p>
+                            <p>Instructor Name : {classe.instructorname}</p>
                             <p>Available Seats : <span className="text-error">{classe.availableseats}</span></p>
                             <p>TotalEnrolled : <span className="text-error">{classe.TotalEnrolled}</span></p>
                             <p>Price : <span className="text-error">{classe.price}</span></p>
