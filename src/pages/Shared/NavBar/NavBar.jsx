@@ -6,22 +6,22 @@ import { AuthContext } from "../../../providers/AuthProvider";
 
 const NavBar = () => {
     const { user, logOut } = useContext(AuthContext)
-    const [theme, setTheme]=useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "light")
+    const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "light")
 
-    useEffect(()=>{
+    useEffect(() => {
         localStorage.setItem("theme", theme);
         const localTheme = localStorage.getItem("theme");
         document.querySelector("html").setAttribute("data-theme", localTheme)
-    },[theme])
+    }, [theme])
 
-const handleToggle =(e)=>{
-    if(e.target.checked){
-        setTheme("dark");
+    const handleToggle = (e) => {
+        if (e.target.checked) {
+            setTheme("dark");
+        }
+        else {
+            setTheme("light");
+        }
     }
-    else{
-        setTheme("light");
-    }
-}
 
     const handleLogOut = () => {
         logOut()
