@@ -64,6 +64,7 @@ const Classes = () => {
 
     return (
         <div className="w-[80%] mx-auto">
+            
             <div className="lg:w-[350px] mx-auto">
                 <h1 className="text-center text-4xl my-16 leading-tight border-x-4 border-error">A<span className="text-error font-serif">L</span>L Cl<span className="text-error font-serif">AS</span>SES</h1>
             </div>
