@@ -1,12 +1,20 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import SocialLogin from "../SocialLogin/SocialLogin";
+
 
 
 
 const Login = () => {
-    const {signIn} = useContext(AuthContext)
+    const navigate = useNavigate();
+    const location = useLocation();
 
+    const from = location.state?.from?.pathname || "/";
+
+    const {signIn} = useContext(AuthContext)
+    const [showorhide, setShoworhide] = useState(false)
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -16,6 +24,7 @@ const Login = () => {
         console.log('email', email, 'password',password)
         signIn(email, password)
         .then(result => {
+            navigate(from, { replace: true })
             const user = result.user;
             console.log(user)   
         })
@@ -37,7 +46,11 @@ const Login = () => {
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type="password" name="password" placeholder="password" className="input input-bordered" />
+                            <input type={showorhide ? "text" : "password"} name="password" placeholder="password" className="input input-bordered" />
+                            {
+                                showorhide === true ? <h2 className="absolute lg:right-14 right-11 mt-12" onClick={() => setShoworhide(!showorhide)}><FaRegEye className="w-6 h-6"></FaRegEye></h2>
+                                    : <h2 className="absolute lg:right-14 right-11 mt-12" onClick={() => setShoworhide(!showorhide)}><FaRegEyeSlash className="w-6 h-6"></FaRegEyeSlash></h2>
+                            }
                             <label className="label">
                                 <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                             </label>
@@ -47,8 +60,10 @@ const Login = () => {
                         </div>
 
                         <div>
-                            <h2>Registration <Link to='/signup'>This Link </Link></h2>
+                            <h2 className="link link-error"><Link to='/signup'> SignUp Link </Link></h2>
                         </div>
+
+                            <SocialLogin></SocialLogin>
                     </form>
                 </div>
             </div>
