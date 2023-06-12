@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Instructors = () => {

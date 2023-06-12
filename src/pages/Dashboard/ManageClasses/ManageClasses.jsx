@@ -1,23 +1,7 @@
-// import React from 'react';
-
-// import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 
 const ManageClasses = () => {
-    // const [allClass, setAllClass] = useState([]);
-    // const [feedback, setFeedback] = useState('')
-    // const [par, setPar] = useState([])
-
-
-    // useEffect(() => {
-    //     fetch('http://localhost:5000/classes',{
-    //         headers: 
-    //     }).then(res => res.json()).then(data => {
-    //         setAllClass(data)
-    //         console.log(data)
-    //     })
-    // }, [par])
 
     const [axiosSecure]= useAxiosSecure()
 
@@ -31,7 +15,7 @@ const ManageClasses = () => {
         const { _id, classname, imgURL, instructorname, instructoremail, availableseats, price, TotalEnrolled, status } = classes;
         const update = { classname, imgURL, instructorname, instructoremail, availableseats, price, TotalEnrolled, status: setStatus }
 
-        fetch(`http://localhost:5000/updatestatus/${_id}`, {
+        fetch(`https://summer-sarver-mdsahjalalrahim-gmailcom.vercel.app/updatestatus/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

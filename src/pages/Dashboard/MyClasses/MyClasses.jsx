@@ -1,13 +1,13 @@
 // import React from 'react';
 
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 
 const MyClasses = () => {
     const { user } = useContext(AuthContext)
-    const [log, setLog] = useState(true)
+    // const [log, setLog] = useState(true)
 
 
 
@@ -22,9 +22,6 @@ const MyClasses = () => {
 
     return (
         <div>
-            {
-                log && <p className="text-4xl">rahim</p>
-            }
             <div className="w-[300px] mx-auto">
                 <h1 className="text-center text-4xl my-16 border-x-4 border-error">M<span className="text-error">y</span> Cla<span className="text-error">ss</span>es</h1>
             </div>

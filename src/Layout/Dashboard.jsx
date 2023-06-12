@@ -3,25 +3,14 @@ import { FaHome } from "react-icons/fa";
 import { GiTeacher, GiArchiveRegister } from "react-icons/gi";
 import { SiGoogleclassroom } from "react-icons/si";
 import { TbCircleCheck } from "react-icons/tb";
-// import useAxiosSecure from "../hooks/useAxiosSecure";
 import useAdmin from "../hooks/useAdmin";
 import useInstructors from "../hooks/useInstructors";
 import useStudent from "../hooks/useStudent";
-// import { useContext, useEffect, useState } from "react";
-// import { AuthContext } from "../providers/AuthProvider";
-
-
-
-
-
 
 
 
 const Dashboard = () => {
      
-    // const isUsers = false;
-    // const isInstructor = false;
-    // const isAdmin = true;
     const [isStudent]= useStudent();
     const [isInstructor]= useInstructors();
     const [isAdmin] = useAdmin()

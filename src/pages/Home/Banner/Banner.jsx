@@ -1,41 +1,91 @@
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination, Navigation } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+import { useRef } from 'react';
+
 import img1 from "../../../assets/bannar/img-1.avif"
 import img2 from "../../../assets/bannar/img-2.jpg"
 import img3 from "../../../assets/bannar/img-3.webp"
 import img4 from "../../../assets/bannar/img-4.webp"
 
+
 const Banner = () => {
+
+    const progressCircle = useRef(null);
+    const progressContent = useRef(null);
+    const onAutoplayTimeLeft = (s, time, progress) => {
+        progressCircle.current.style.setProperty('--progress', 1 - progress);
+        progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
+    }
     return (
-        <div className='w-[80%] mx-auto mb-20 p-5 bg-black'>
-            <div className="carousel w-full">
-                <div id="slide1" className="carousel-item relative w-full h-[700px] bg-[url()]" >
-                    <img src={img1} className="w-full" />
-                    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                        <a href="#slide4" className="btn btn-circle">❮</a>
-                        <a href="#slide2" className="btn btn-circle">❯</a>
+        <div className='w-[80%] mx-auto'>
+            <Swiper
+                spaceBetween={30}
+                centeredSlides={true}
+                autoplay={{
+                    delay: 5500,
+                    disableOnInteraction: false,
+                }}
+                pagination={{
+                    clickable: true,
+                }}
+                navigation={true}
+                modules={[Autoplay, Pagination, Navigation]}
+                onAutoplayTimeLeft={onAutoplayTimeLeft}
+                className="mySwipe "
+            >
+                <SwiperSlide>
+                    {/* style={{ backgroundImage: `url(${img1})` }} */}
+                    <div className='flex flex-col-reverse lg:flex-row justify-center lg:items-center gap-10'>
+                        <div className='w-[90%] mx-auto lg:w-[45%] py-3 px-2 border-2 my-2 shadow-2xl bg-black'>
+                            <img src={img1} className=' lg:w-[600px] mx-auto lg:h-[400px]' alt="" />
+                        </div>
+                        <div className='w-[90%] mx-auto lg:w-[45%] text-black'>
+                            <h1 className='text-2xl lg:text-4xl text-center'>Hi There </h1>
+                            <p className='text-center text-xl'>Welcome to our Wevside</p>
+                            <p className='text-center'>Here we teach different types of <span className='text-error font-serif'>music Instrument</span></p>
+                        </div>
+                    </div>
+
+                </SwiperSlide>   
+                <SwiperSlide>
+                    {/* style={{ backgroundImage: `url(${img1})` }} */}
+                    <div className='flex flex-col-reverse lg:flex-row justify-center lg:items-center gap-10 '>
+                        <div className='w-[90%] mx-auto lg:w-[45%] py-3 px-2 border-2 my-2 shadow-2xl bg-black'>
+                            <img src={img3} className=' lg:w-[600px] mx-auto lg:h-[400px]' alt="" />
+                        </div>
+                        <div className='w-[90%] mx-auto lg:w-[45%] text-black'>
+                        <h1 className='text-2xl lg:text-4xl text-center'>Hi There </h1>
+                            <p className='text-center text-xl'>Welcome to our Wevside</p>
+                            <p className='text-center'>Here we teach different types of <span className='text-error font-serif'>music Instrument</span></p>
+                        </div>
+                    </div>
+
+                </SwiperSlide>   
+                <SwiperSlide>
+                    {/* style={{ backgroundImage: `url(${img1})` }} */}
+                    <div className='flex flex-col-reverse lg:flex-row justify-center lg:items-center gap-10 '>
+                        <div className='w-[90%] mx-auto lg:w-[45%] py-3 px-2 border-2 my-2 shadow-2xl bg-black'>
+                            <img src={img4} className=' lg:w-[600px] mx-auto lg:h-[400px]' alt="" />
+                        </div>
+                        <div className='w-[90%] mx-auto lg:w-[45%] text-black'>
+                        <h1 className='text-2xl lg:text-4xl text-center'>Hi There </h1>
+                            <p className='text-center text-xl'>Welcome to our Wevside</p>
+                            <p className='text-center'>Here we teach different types of <span className='text-error font-serif'>music Instrument</span></p>
+                        </div>
+                    </div>
+
+                </SwiperSlide>   
+
+                <div className="autoplay-progress w-6" slot="container-end">
+                    <div ref={progressCircle} className="radial-progress w-20" style={{ "--value": "100", "--thickness": "2px" }}>
+                        <span className='text-black' ref={progressContent}></span>
                     </div>
                 </div>
-                <div id="slide2" className="carousel-item relative w-full h-[700px]">
-                    <img src={img2} className="w-full" />
-                    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                        <a href="#slide1" className="btn btn-circle">❮</a>
-                        <a href="#slide3" className="btn btn-circle">❯</a>
-                    </div>
-                </div>
-                <div id="slide3" className="carousel-item relative w-full h-[700px]">
-                    <img src={img3} className="w-full" />
-                    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                        <a href="#slide2" className="btn btn-circle">❮</a>
-                        <a href="#slide4" className="btn btn-circle">❯</a>
-                    </div>
-                </div>
-                <div id="slide4" className="carousel-item relative w-full h-[700px]">
-                    <img src={img4} className="w-full" />
-                    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                        <a href="#slide3" className="btn btn-circle">❮</a>
-                        <a href="#slide1" className="btn btn-circle">❯</a>
-                    </div>
-                </div>
-            </div>
+            </Swiper>
         </div>
     );
 };

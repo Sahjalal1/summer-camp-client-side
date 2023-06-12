@@ -24,7 +24,7 @@ const Classes = () => {
         if (user && user.email) {
             const data = { classId: _id, classname, imgURL, price, availableseats, TotalEnrolled,instructoremail,instructorname,status, email: user.email }
             console.log(data)
-            fetch('http://localhost:5000/addclass', {
+            fetch('https://summer-sarver-mdsahjalalrahim-gmailcom.vercel.app/addclass', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
