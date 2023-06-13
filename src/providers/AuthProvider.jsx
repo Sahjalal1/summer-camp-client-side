@@ -8,27 +8,27 @@ const auth = getAuth(app)
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     const googleProvider = new GoogleAuthProvider();
 
     const createUser = (email, password) => {
-        setLoading(true)
+        setLoading(false)
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
     const signIn = (email, password) => {
-        setLoading(true);
+        setLoading(false);
         return signInWithEmailAndPassword(auth, email, password)
     }
 
     const googleSignIn = () =>{
-        setLoading(true);
+        setLoading(false);
         return signInWithPopup(auth, googleProvider);
     }
 
     const logOut = () => {
-        setLoading(true)
+        setLoading(false)
         return signOut(auth)
     }
 
@@ -37,10 +37,10 @@ const AuthProvider = ({ children }) => {
             displayName: name, photoURL: photo
         })
     }
+ 
     
-   
     useEffect(() => {
-        setLoading(true)
+        // setLoading(true)
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser)
             console.log('auth, currentUser', currentUser)
@@ -49,11 +49,11 @@ const AuthProvider = ({ children }) => {
                 axios.post('http://localhost:5000/jwt', { email: currentUser.email })
                 .then(data=>{
                    localStorage.setItem('access-token', data.data.token)
-                   setLoading(false);
-                   console.log(user)
+                   setLoading(false);  
                 })
             }
             else {
+                setLoading(false)
                 localStorage.removeItem('access-token')
                 // console.log('error')
             }

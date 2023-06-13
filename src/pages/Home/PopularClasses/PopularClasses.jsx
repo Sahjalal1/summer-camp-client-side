@@ -1,21 +1,30 @@
 import { useContext, useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../providers/AuthProvider";
-import useAdmin from "../../../hooks/useAdmin";
-import useInstructors from "../../../hooks/useInstructors";
+import { useNavigate } from "react-router-dom";
 
 
 const PopularClasses = () => {
     const {user}= useContext(AuthContext)
+    const navigate = useNavigate
     const [classes, setClasses]= useState([])
     const [refetch, setRefetch]= useState('')
+    const token = localStorage.getItem('access-token')
+    const [role, setRole]= useState()
 
-    const [isAdmin]= useAdmin()
-    const [isInstructors]= useInstructors()
+
+    useEffect(()=>{
+        fetch(`http://localhost:5000/users/${user?.email}`,{ headers: {
+                     authorization: `bearer ${token}`}})
+            .then(res=> res.json()).then(data => {
+                const dat = data[0].role
+                setRole(dat)
+        })
+       },[user,token])
+
 
     useEffect(() => {
-        fetch('https://summer-sarver-mdsahjalalrahim-gmailcom.vercel.app/approveclasses',)
+        fetch('https://summer-sarver-mdsahjalalrahim-gmailcom.vercel.app/approveclasses')
             .then(res => res.json()).then(data => {
               const datas = data.sort((a,b)=> a.TotalEnrolled <b.TotalEnrolled ? 1 : -1)
                 const sdata = datas.slice(0, 6)
@@ -61,7 +70,7 @@ const PopularClasses = () => {
                 confirmButtonText: 'Login now'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Navigate('/login', { state: { from: location } })
+                    navigate('/login', { state: { from: location } })
                 }
             })
         }
@@ -85,7 +94,7 @@ const PopularClasses = () => {
                             <p>Price : <span className="text-error">{classe.price}</span></p>
                             <div className="card-actions justify-end">
                                {
-                                classe.availableseats === 0 || isAdmin === true || isInstructors === true ?  <button disabled  className="btn btn-error">Booking</button>
+                                classe.availableseats === 0 || role === 'admin' || role === 'instructor' ?  <button disabled  className="btn btn-error">Booking</button>
                                 :  <button onClick={() => handelAddCart(classe)} className="btn btn-primary">Booking</button>
                                }
                             </div>

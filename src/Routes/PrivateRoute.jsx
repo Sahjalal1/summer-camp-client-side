@@ -7,9 +7,8 @@ import { AuthContext } from "../providers/AuthProvider";
 const PrivateRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
     const location = useLocation();
-    // const [haha, setHaha] = useState(false)
 
-
+    console.log(loading)
     if (loading) {
         return <div className="flex justify-center mx-auto "><span className="loading loading-spinner loading-lg"></span></div>  
     }

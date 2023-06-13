@@ -1,25 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Instructors = () => {
-    // const [instructors, setInstructors] = useState([])
-    // useEffect(() => {
-    //     fetch('http://localhost:5000/instructors',)
-    //         .then(res => res.json()).then(data => {
-    //             setInstructors(data)
-    //             console.log(data)
-    //         })
-    // }, [])
-const [axiosSecure]= useAxiosSecure()
+    
+    const [axiosSecure] = useAxiosSecure()
+    
     const { data: instructors = [] } = useQuery(['instructors'], async () => {
         const res = await axiosSecure.get('/instructors')
         return res.data;
     })
-
-    useEffect(() => {
-
-    }, [])
 
 
     return (
@@ -30,7 +20,7 @@ const [axiosSecure]= useAxiosSecure()
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {
                     instructors?.map(instructor => <div key={instructor._id} className="lg:w-[400px] shadow-2xl rounded-lg">
-                        <figure><img  className="w-full h-[250px]" src={instructor.imgURL} alt="Shoes" /></figure>
+                        <figure><img className="w-full h-[250px]" src={instructor.imgURL} alt="Shoes" /></figure>
                         <div className="card-body">
                             <h2 className="card-title">Instructor Name : {instructor.name}</h2>
                             <p>Email : {instructor.email}</p>
