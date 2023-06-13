@@ -2,12 +2,17 @@ import { useContext, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../providers/AuthProvider";
+import useAdmin from "../../../hooks/useAdmin";
+import useInstructors from "../../../hooks/useInstructors";
 
 
 const PopularClasses = () => {
     const {user}= useContext(AuthContext)
     const [classes, setClasses]= useState([])
     const [refetch, setRefetch]= useState('')
+
+    const [isAdmin]= useAdmin()
+    const [isInstructors]= useInstructors()
 
     useEffect(() => {
         fetch('https://summer-sarver-mdsahjalalrahim-gmailcom.vercel.app/approveclasses',)
@@ -80,8 +85,8 @@ const PopularClasses = () => {
                             <p>Price : <span className="text-error">{classe.price}</span></p>
                             <div className="card-actions justify-end">
                                {
-                                classe.availableseats === 0 ?  <button disabled  className="btn btn-error">See Classes</button>
-                                :  <button onClick={() => handelAddCart(classe)} className="btn btn-primary">See Classes</button>
+                                classe.availableseats === 0 || isAdmin === true || isInstructors === true ?  <button disabled  className="btn btn-error">Booking</button>
+                                :  <button onClick={() => handelAddCart(classe)} className="btn btn-primary">Booking</button>
                                }
                             </div>
                         </div>

@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import Swal from "sweetalert2";
 
 
 
@@ -28,7 +29,13 @@ const Login = () => {
             const user = result.user;
             console.log(user)   
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: "wrong-password"
+              })
+        })
     }
 
     return (

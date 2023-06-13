@@ -37,7 +37,8 @@ const AuthProvider = ({ children }) => {
             displayName: name, photoURL: photo
         })
     }
-
+    
+   
     useEffect(() => {
         setLoading(true)
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
@@ -45,10 +46,11 @@ const AuthProvider = ({ children }) => {
             console.log('auth, currentUser', currentUser)
 
             if (currentUser) {
-                axios.post('https://summer-sarver-mdsahjalalrahim-gmailcom.vercel.app/jwt', { email: currentUser.email })
+                axios.post('http://localhost:5000/jwt', { email: currentUser.email })
                 .then(data=>{
                    localStorage.setItem('access-token', data.data.token)
                    setLoading(false);
+                   console.log(user)
                 })
             }
             else {

@@ -1,11 +1,15 @@
+import { useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 
 const ManageClasses = () => {
-
     const [axiosSecure]= useAxiosSecure()
+    const [feedback,setFeedback]= useState("")
+    const [forId,setForId]= useState('')
 
-    const { data: allClass = [] } = useQuery(['allClass'], async () => {
+
+    const { data: allClass = [], refetch } = useQuery(['allClass'], async () => {
         const res = await axiosSecure.get('/classes')
         return res.data;
     })
@@ -24,40 +28,43 @@ const ManageClasses = () => {
         })
             .then(res => res.json())
             .then(data => {
-                // setAm(data)
-                console.log(data);
-                // setPar(data)
+                refetch()
+                Swal.fire(
+                    'update it!',
+                    'You clicked the button!',
+                    'success'
+                  )
             })
 
     }
-    // Swal.fire({
-    //     title: 'Do you want to save the changes?',
-    //     showDenyButton: true,
-    //     showCancelButton: true,
-    //     confirmButtonText: 'Save',
-    //     denyButtonText: `Don't save`,
-    // }).then((result) => {
-    //     /* Read more about isConfirmed, isDenied below */
-    //     if (result.isConfirmed) {
-
-    //         Swal.fire('Update!', '', 'success')
-    //     }
-    //     else if (result.isDenied) {
-
-    //         Swal.fire('Changes are not Update', '', 'info')
-    //         return;
-    //     }
-    // })
 
 
     const handelChange = event => {
         event.preventDefault();
         const data = event.target.value
-        // setFeedback(data)
+        
+        setFeedback(data)
     }
 
     const handelSubmit = () => {
-        // console.log(feedback)
+        console.log(feedback)
+        const data = {feedBack:feedback};
+        console.log(data)
+        console.log('56')
+       axiosSecure.patch(`/feedback/${forId}`, data)
+            .then(data => {
+                console.log(data)
+                if (data) {           
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: `is an Admin Now!`,
+                        showConfirmButton: false,
+                        timer: 1500
+                      }) 
+                }
+            })
+
     }
 
 
@@ -75,7 +82,7 @@ const ManageClasses = () => {
                             className="w-[400px] shadow-2xl rounded-lg">
                             <img  className="w-full h-[250px]" src={classa?.imgURL} alt="Shoes" />
                             <div className="card-body">
-                                <h2 className="card-title">Class Name : <span className="border-b-2 border-black">{classa?.instructoremail}</span>!</h2>
+                                <h2 className="card-title">Class Name : <span className="border-b-2 border-black">{classa?.classname}</span>!</h2>
 
                                 <h1 className="font-sebold my-4">Instructor Name : <span className=" border-b-2 border-black">{classa?.instructorname}</span></h1>
                                 <h1 className="font-sebold">Instructor Name : <span className="border-b-2 border-black">{classa?.instructoremail}</span></h1>
@@ -93,7 +100,7 @@ const ManageClasses = () => {
                                         classa?.status === 'approve' || classa?.status === 'denied' ? <button disabled className="py-3 px-4 disabled:disabled disabled:opacity-75 disabled:bg-slate-500 border-2 rounded-md ">denied</button>
                                             : <button onClick={() => handelClasses(classa, "denied")} className="py-3 px-4 border-2 rounded-md btn-outline btn-error">denied</button>
                                     }
-                                    <button onClick={() => window.my_modal_1.showModal()} className="py-3 px-4 border-2 rounded-md btn-outline btn-error">feedback</button>
+                                    <button onClick={() => window.my_modal_1.showModal(setForId(classa?._id))} className="py-3 px-4 border-2 rounded-md btn-outline btn-error">feedback</button>
                                 </div>
                             </div>
                         </div>)

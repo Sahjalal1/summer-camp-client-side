@@ -4,12 +4,17 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import useAdmin from "../../hooks/useAdmin";
+import useInstructors from "../../hooks/useInstructors";
 
 
 const Classes = () => {
-    const { user } = useContext(AuthContext)
-    const [axiosSecure] = useAxiosSecure()
-    const navigate = useNavigate()
+    const { user } = useContext(AuthContext);
+    const [axiosSecure] = useAxiosSecure();
+    const navigate = useNavigate();
+
+    const [isAdmin]= useAdmin();
+    const [isInstructor]= useInstructors()
 
     const { data: classes = [], refetch } = useQuery(['classes'], async () => {
         const res = await axiosSecure.get('/approveclasses')
@@ -80,8 +85,8 @@ const Classes = () => {
                             <p>Price : <span className="text-error">{classe.price}</span></p>
                             <div className="card-actions justify-end">
                                {
-                                classe.availableseats === 0 ?  <button disabled className="btn btn-error">See Classes</button>
-                                :  <button onClick={() => handelAddCart(classe)} className="btn btn-primary">See Classes</button>
+                                classe.availableseats === 0 || isAdmin === true || isInstructor === true ? <button disabled className="btn btn-primary">Booking</button>
+                                :  <button onClick={() => handelAddCart(classe)} className="btn btn-primary">Booking</button>
                                }
                             </div>
                         </div>

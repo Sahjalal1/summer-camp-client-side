@@ -1,8 +1,9 @@
-// import React from 'react';
-
 import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+
+
 
 const AddClass = () => {
     const {user}= useContext(AuthContext)
@@ -24,15 +25,13 @@ const AddClass = () => {
                 .then(data => {
                     console.log('after posting new menu item', data.data)
                     if(data.data.insertedId){
-                        // console.log('rahim')
-                        // reset();
-                        // Swal.fire({
-                        //     position: 'top-end',
-                        //     icon: 'success',
-                        //     title: 'Item added successfully',
-                        //     showConfirmButton: false,
-                        //     timer: 1500
-                        //   })
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Item added successfully',
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
                     }
                 })
     }
