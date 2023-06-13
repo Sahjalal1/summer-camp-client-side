@@ -7,9 +7,6 @@ import { useQuery } from "@tanstack/react-query";
 
 const MyClasses = () => {
     const { user } = useContext(AuthContext)
-    // const [log, setLog] = useState(true)
-
-
 
 
     const [axiosSecure] = useAxiosSecure()

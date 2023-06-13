@@ -14,9 +14,9 @@ const Dashboard = () => {
     const [isStudent]= useStudent();
     const [isInstructor]= useInstructors();
     const [isAdmin] = useAdmin()
-    console.log('student', isStudent)
-    console.log('Instructors', isInstructor)
-    console.log('admin', isAdmin)
+    // console.log('student', isStudent)
+    // console.log('Instructors', isInstructor)
+    // console.log('admin', isAdmin)
 
     return (
         <div className="drawer lg:drawer-open">
