@@ -22,7 +22,7 @@ const Classes = () => {
     })
 
    useEffect(()=>{
-    fetch(`http://localhost:5000/users/${user?.email}`,{ headers: {
+    fetch(`https://summer-sarver-mdsahjalalrahim-gmailcom.vercel.app/users/${user?.email}`,{ headers: {
                  authorization: `bearer ${token}`}})
         .then(res=> res.json()).then(data => {
             const dat = data[0].role
