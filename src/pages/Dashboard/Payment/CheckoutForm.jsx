@@ -109,7 +109,7 @@ const CheckoutForm = ({ price, select }) => {
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
+            <form className="bg-[#f6f9fc]" onSubmit={handleSubmit}>
                 <CardElement
                     options={{
                         style: {
@@ -126,7 +126,7 @@ const CheckoutForm = ({ price, select }) => {
                         },
                     }}
                 />
-                <button className="btn" type="submit" disabled={!stripe || !clientSecret || processing}>
+                <button className="btn " type="submit" disabled={!stripe || !clientSecret || processing}>
                     Pay
                 </button>
             </form>

@@ -26,10 +26,9 @@ const Payment = () => {
     const total = select[0]?.price;
     const price = parseFloat(total)
     return (
-        <div>
-            <h1>payment {params.id}</h1>
+        <div className="w-[80%] mx-auto lg:w-[400px] ">
             <Elements stripe={stripePromise}>
-                <CheckoutForm price={price} select={select}></CheckoutForm>
+                <CheckoutForm  price={price} select={select}></CheckoutForm>
             </Elements>
         </div>
     );

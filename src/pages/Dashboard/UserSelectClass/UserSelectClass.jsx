@@ -89,8 +89,8 @@ const UserSelectClass = () => {
                             <p>Email : {select.email}</p>
                             <p>Email : {select.price}</p>
                             <div className="card-actions justify-end">
-                                <button onClick={() => handelDelete(select._id)}>Delete Item</button>
-                                <Link to={`/dashboard/payment/${select._id}`}><button className="">payment</button></Link>
+                                <button className="btn btn-outline btn-error" onClick={() => handelDelete(select._id)}>Delete Item</button>
+                                <Link to={`/dashboard/payment/${select._id}`}><button className="btn btn-outline btn-error">payment</button></Link>
                             </div>
                         </div>
                     </div>)

@@ -2,12 +2,15 @@
 
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useContext } from "react";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 const MyEnrolledClasses = () => {
+    const {user} = useContext(AuthContext)
     const [axiosSecure] = useAxiosSecure();
 
     const { data: EnrolledClass = [] } = useQuery(['EnrolledClass'], async () => {
-        const res = await axiosSecure.get('/enrolledClasses')
+        const res = await axiosSecure.get(`/enrolledClasses/${user?.email}`)
         return res.data;
     })
     console.log(EnrolledClass)
@@ -20,7 +23,7 @@ const MyEnrolledClasses = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {
-                    EnrolledClass?.map(enrolled => <div key={enrolled._id} className="w-[90%] mx-auto lg:w-[400px] shadow-2xl rounded-lg">
+                  EnrolledClass.length === 0 ? <p className="text-2xl text-center text-error">No enrolled Class</p>  : EnrolledClass?.map(enrolled => <div key={enrolled._id} className="w-[90%] mx-auto lg:w-[400px] shadow-2xl rounded-lg">
                         <figure><img  className="w-full h-[250px]" src={enrolled?.imgURL} alt="Shoes" /></figure>
                         <div className="card-body">
                             <p className="card-title">Classes Name : {enrolled?.itemNames}</p>
