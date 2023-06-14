@@ -77,7 +77,7 @@ const CheckoutForm = ({ price, select }) => {
         if (paymentIntent.status === 'succeeded') {
             setTransactionId(paymentIntent.id)
             // const haha = 
-            const {classId,classname,availableseats,imgURL,TotalEnrolled,instructoremail,instructorname,status,price} =select[0]; 
+            const { classId, classname, availableseats, imgURL, TotalEnrolled, instructoremail, instructorname, status, price } = select[0];
             // console.log('hahahahahah',classname,availableseats,TotalEnrolled,imgURL,instructoremail,instructorname,status,price )
             const sum = parseFloat(TotalEnrolled) + 1;
             const minus = parseFloat(availableseats) - 1;
@@ -109,24 +109,26 @@ const CheckoutForm = ({ price, select }) => {
 
     return (
         <>
-            <form className="bg-[#f6f9fc]" onSubmit={handleSubmit}>
-                <CardElement
-                    options={{
-                        style: {
-                            base: {
-                                fontSize: '16px',
-                                color: '#424770',
-                                '::placeholder': {
-                                    color: '#aab7c4',
+            <form className="bg-[#f6f9fc] py-10" onSubmit={handleSubmit}>
+                <div className="text-black px-10 ">
+                    <CardElement
+                        options={{
+                            style: {
+                                base: {
+                                    fontSize: '26px',
+                                    color: '#424770',
+                                    '::placeholder': {
+                                        color: 'black',
+                                    },
+                                },
+                                invalid: {
+                                    color: '#9e2146',
                                 },
                             },
-                            invalid: {
-                                color: '#9e2146',
-                            },
-                        },
-                    }}
-                />
-                <button className="btn " type="submit" disabled={!stripe || !clientSecret || processing}>
+                        }}
+                    />
+                </div>
+                <button className="btn mt-8" type="submit" disabled={!stripe || !clientSecret || processing}>
                     Pay
                 </button>
             </form>
